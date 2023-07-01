@@ -17,18 +17,14 @@ app.get('/hello', (req, res) => {
 })
 
 app.get('/getfeed', (req, res) => {
-  const { user_id, event_id } = req.query;
-  res.send(getFeed(user_id, event_id));
+  const { userID } = req.query;
+  res.send(getFeed(userID));
 });
 
 app.delete('/deleteEvent', (req, res) => {
-  const event_id = req.query('event_id');
+  const event_id = req.query('eventID');
   res.send(deleteEvent(event_id));
 });
-
-app.listen(6060, () => {
-  console.log('started server')
-})
 
 app.get('/events/getEventDetails/:id', (req, res) => {
   res.send('hello');
@@ -41,3 +37,7 @@ app.post('/events/createEvent', (req, res) => {
   const { id, event_name, date, picture } =  req.body
 
 }) 
+
+app.listen(6060, () => {
+  console.log('started server')
+})
