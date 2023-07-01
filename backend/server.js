@@ -4,6 +4,7 @@ import { helloWorld } from './test.js'
 
 import { getEventDetails, createNewEvent } from './events.js'
 import { v4 as uuidv4 } from 'uuid';
+import { getEventMessages, sendEventMessage } from './messages.js';
 
 
 const app = express()
@@ -32,6 +33,7 @@ app.post('/events/createEvent', (req, res) => {
   const randomID = uuidv4();
 
   createNewEvent(randomID, hostID, eventName, date, description, tags, location, members, img)
+  res.json();
 }) 
 
 //dynamic 
@@ -40,4 +42,18 @@ app.get('/events/getEventDetails/:id', (req, res) => {
 
   const event = getEventDetails(id);
   res.json(event);
+})
+
+
+// Event Messaging
+app.get('/messages/getEventMessages/:id', (req, res) => {
+  const id = req.params.id;
+  const messages = getEventMessages(id);
+  res.json(messages);
+})
+
+app.post('/messages/sendEventMessage', (req, res) => {
+  const {eventID, userID, content} = req.body;
+  sendEventMessage(eventID, userID, content);
+  res.json();
 })

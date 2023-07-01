@@ -1,4 +1,29 @@
 {
     "users": {},
-    "events": {}
+    "events": {
+        "fb9b5f6c-e753-4535-bc42-c3423b636d90": {
+            "eventID": "fb9b5f6c-e753-4535-bc42-c3423b636d90",
+            "hostID": "Arthur",
+            "eventName": "Melbourne enactus",
+            "date": "1/7/2023",
+            "description": "elsa going melbourne",
+            "location": "melbourne",
+            "members": [],
+            "img": "image",
+            "messages": [
+                {
+                    "userID": "kierenh",
+                    "content": "hi id love to go to melbourne"
+                },
+                {
+                    "userID": "dannyl",
+                    "content": "i absolutey hate melbourne"
+                },
+                {
+                    "userID": "kierenh",
+                    "content": "RAAAAAAAAAAAH"
+                }
+            ]
+        }
+    }
 }

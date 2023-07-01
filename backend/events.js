@@ -3,7 +3,8 @@ import {getData, setData} from './data.js'
 
 function createNewEvent(eventID, hostID, eventName, date, description, tags, location, members, img) {
     const data = getData();
-    data.events[eventID] = {eventID, hostID, eventName, date, description, tags, location, members, img};
+    const messages = [];
+    data.events[eventID] = {eventID, hostID, eventName, date, description, tags, location, members, img, messages};
     setData(data);
 }
 
