@@ -7,9 +7,11 @@ function register(username, password) {
     data.users[username] = {
         userID: username,
         password: password,
+        bio: null,
+        tags: [],
+        picture: null
     }
     setData(data);
-    console.log(getData())
     return { username };
 }
 
