@@ -5,7 +5,7 @@ export const fetchUserDetails = async ({userId}: {userId: string}) => {
         username: 'daniel',
         bio: 'this is my really cool bio i am a really cool person and i like travelling to really cool places',
         tags: ['korea', 'food', 'pets'],
-        picture: '',
+        picture: 'https://cgi.cse.unsw.edu.au/~cs2041//team/5363586/profile.jpg',
         hosted_events: ['eventid1', 'eventid2', 'eventid3'],
         joined_events: [],
     }

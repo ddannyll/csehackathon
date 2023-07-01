@@ -9,6 +9,7 @@ import {applyFn} from '@/util/helpers'
 import { fetchUserDetails } from '@/util/fetchers'
 import { Dialog } from '@headlessui/react'
 import EditProfileForm from '@/components/EditProfileForm'
+import EditEventForm from '@/components/EditEventForm'
 
 export default function Profile() {
     const {authUser} = useContext(AuthContext)
@@ -34,16 +35,21 @@ export default function Profile() {
                     <Dialog.Title className="text-2xl text-zinc-600 text-center pb-2">
                         {dialogForm === 'editProfile' ? 'Editing Profile' : 'Editing Event'}
                     </Dialog.Title>
-                    <EditProfileForm close={() => setDialogOpen(false)} initialBio={bio} initialTags={tags} initialImage={picture} />
+                    {dialogForm === 'editEvent' ?
+                        <EditEventForm close={() => setDialogOpen(false)} eventId={editingEvent}/>
+                        :
+                        <EditProfileForm close={() => setDialogOpen(false)} initialBio={bio} initialTags={tags} initialImage={picture} />
+
+                    }
                 </Dialog.Panel>
             </Dialog>
             <div className='bg-zinc-100 shadow flex flex-col mt-10 mb-32 rounded-xl overflow-hidden'>
                 <Image
-                    src={'/placehold.png'}
+                    src={picture || '/placehold.png'}
                     alt={'profile pic'}
                     width={500}
                     height={500}
-                    className='w-full object-cover'
+                    className='w-full object-cover aspect-video'
                 />
                 <div className="flex flex-col gap-4 px-6 py-4">
                     <h2 className='text-2xl text-center grow'>
@@ -75,7 +81,17 @@ export default function Profile() {
                     <div className="flex flex-col gap-2">
                         <h3 className='text-md'>Events</h3>
                         <div className="grid grid-cols-2 w-full gap-3">
-                            {hosted_events.map(eventId => <EventBlock eventId={eventId} key={eventId} owned={true}/>)}
+                            {hosted_events.map(eventId => <EventBlock
+                                editEvent={
+                                    () => {
+                                        setEditingEvent(eventId)
+                                        setDialogOpen(true)
+                                        setDialogForm('editEvent')
+                                    }
+                                }
+                                eventId={eventId}
+                                key={eventId}
+                                owned={true}/>)}
                         </div>
                     </div>
 

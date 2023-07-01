@@ -11,9 +11,10 @@ import Tag from './Tag'
 interface EventBlockProps {
     eventId: string
     owned: boolean
+    editEvent: () => void
 }
 
-export default function EventBlock({eventId, owned}: EventBlockProps) {
+export default function EventBlock({eventId, owned, editEvent}: EventBlockProps) {
     const {data} = useSWR([fetchEventDetails, {eventId}],
         applyFn<Parameters<typeof fetchEventDetails>, ReturnType<typeof fetchEventDetails>>
     )
@@ -37,9 +38,11 @@ export default function EventBlock({eventId, owned}: EventBlockProps) {
             <div className="text-sm text-zinc-500 bg-zinc-200">
                 <div className="flex justify-between items-center">
                     <span className='p-2'>4/5</span>
-                    <button className='p-2 z-10 hover:text-zinc-900'>
-                    Edit
-                    </button>
+                    {owned &&
+                        <button className='p-2 z-10 hover:text-zinc-900' onClick={editEvent}>
+                            Edit
+                        </button>
+                    }
                 </div>
                 <div className="flex gap-2 p-2 overflow-x-scroll scrollbar-thin scrollbar-thumb-zinc-500">
                     {tags.map(tag => <Tag name={tag} key={tag} className='bg-zinc-300'/>)}
