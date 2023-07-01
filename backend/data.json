@@ -18,8 +18,9 @@
             ],
             "img": "./image"
         },
-        "sdj": {
-            "eventID": "sdj",
+        "6cf0c00e-fcb2-4773-94c1-4b020dda7e05": {
+            "eventID": "6cf0c00e-fcb2-4773-94c1-4b020dda7e05",
+            "hostID": "kieren",
             "eventName": "tokyo",
             "date": "17/3/24",
             "description": "going to TOKYOOO",
@@ -27,7 +28,7 @@
                 "local",
                 "temple"
             ],
-            "location": "sydney",
+            "location": "tokyo",
             "members": [
                 "william",
                 "kieren"

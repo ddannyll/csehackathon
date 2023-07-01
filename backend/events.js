@@ -1,6 +1,7 @@
 import {getData, setData} from './data.js'
 
 
+
 // class Event {
 //     constructor (token, eventID, eventName, date, description, img) {
 //         this.token = token;
@@ -18,6 +19,7 @@ import {getData, setData} from './data.js'
 
 function createNewEvent(eventID, hostID, eventName, date, description, tags, location, members, img) {
     const temp = getData();
+    console.log(temp);
     temp.events[eventID] = {eventID, hostID, eventName, date, description, tags, location, members, img};
     setData(temp);
 
@@ -43,4 +45,4 @@ function getEventDetails(id) {
 }
 
 
-export { getEventDetails };
+export { getEventDetails, createNewEvent };
