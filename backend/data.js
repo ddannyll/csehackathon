@@ -1,5 +1,5 @@
 import fs from 'fs';
-const databaseFile = __dirname + '/../data.json';
+const databaseFile ='./data.json';
 
 
 
