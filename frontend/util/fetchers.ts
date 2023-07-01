@@ -18,8 +18,8 @@ export const fetchEventDetails = async ({eventId}: {eventId: string}) => {
         hostId: 'kieranId',
         eventName: 'Bouldering',
         date: '2023-07-01T14:16:13+0000',
-        description: 'We climb at 9degrees waterloo yes yes',
-        tags: ['fitness', 'sydney', 'climb', 'local'],
+        description: 'Let\'s climb at 9 Degrees Waterloo!. Meet up at Redfern station at 12pm, everyone is welcome! Dinner aftewards at Mascot.',
+        tags: ['fitness', 'climb', 'local'],
         location: 'sydney',
         members: [],
         img: 'https://media.timeout.com/images/105287783/image.jpg',
@@ -41,4 +41,20 @@ export const fetchEventDetails = async ({eventId}: {eventId: string}) => {
     }
 
     return dummyData2
+}
+
+export const fetchFeed = async ({userId}: {userId: string}) => {
+    const dummyData = [
+        {
+            'event_id': 'eventid1',
+            'tag_rating': 5,
+            'date': '2023-07-01T14:16:13+0000',
+        },
+        {
+            'event_id': 'eventid2',
+            'tag_rating': 3,
+            'date': '2023-07-01T14:16:13+0000',
+        },
+    ]
+    return dummyData
 }
