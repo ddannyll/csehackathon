@@ -149,8 +149,8 @@ function removeEventTag(user, id, remove) {
     const data = getData();
     const tags = data.events[id].tags;
     if (user !== data.events[id].hostID) return false;
-    if (!tags.includes(tag)) return false;
-    data.event[eventID].tags = tags.filter(tag => tag !== remove);
+    if (!tags.includes(remove)) return false;
+    data.event[id].tags = tags.filter(tag => tag !== remove);
     return true
 }
 
