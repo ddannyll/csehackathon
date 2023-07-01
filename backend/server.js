@@ -1,4 +1,3 @@
-import { getData } from './data.js'
 import express from 'express'
 import { helloWorld } from './test.js'
 import { getFeed } from './events.js'
@@ -16,7 +15,7 @@ app.get('/hello', (req, res) => {
 })
 
 app.get('/getfeed', (req, res) => {
-  const userId = req.header('userId');
+  const user_id = req.header('userId');
   const event_id = req.query;
   res.send(getFeed(user_id, event_id));
 });

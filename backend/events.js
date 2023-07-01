@@ -1,4 +1,4 @@
-import { getData, setData } from "./data";
+import { getData } from "./data";
 
 function getFeed(userId) {
     const data = getData();
