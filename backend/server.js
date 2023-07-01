@@ -22,7 +22,7 @@ app.get('/hello', (req, res) => {
 })
 
 app.listen(6060, () => {
-  console.log('started server')
+  console.log('Started server')
 })
 
 
@@ -36,8 +36,8 @@ app.post('/events/createEvent', (req, res) => {
 
 //dynamic 
 app.get('/events/getEventDetails/:id', (req, res) => {
-  res.send('hello');
   const id = req.params.id;
-  // console.log(id);
-  getEventDetails(id);
+
+  const event = getEventDetails(id);
+  res.json(event);
 })
