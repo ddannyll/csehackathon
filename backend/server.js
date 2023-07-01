@@ -2,7 +2,7 @@ import { getData, setData, databaseInit} from './data.js'
 import express from 'express'
 import { helloWorld } from './test.js'
 
-import { getEventDetails, createNewEvent } from './events.js'
+import { getEventDetails, createNewEvent, updateName, updateLocation, updateDate, addMember, removeMember } from './events.js'
 import { v4 as uuidv4 } from 'uuid';
 
 
@@ -28,16 +28,52 @@ app.listen(6060, () => {
 
 
 app.post('/events/createEvent', (req, res) => {
-  const {hostID, eventName, date, description, tags, location, members, img} =  req.body;
+  const {hostID, eventName, date, description, tags, location, members, img} = req.body;
   const randomID = uuidv4();
 
   createNewEvent(randomID, hostID, eventName, date, description, tags, location, members, img)
+  res.json()
 }) 
 
 //dynamic 
 app.get('/events/getEventDetails/:id', (req, res) => {
   const id = req.params.id;
-
+  
   const event = getEventDetails(id);
   res.json(event);
+})
+
+app.post('/events/updateName', (req, res) => {
+  const { userID, eventID, newName } = req.body;
+
+  const success = updateName(userID, eventID, newName);
+  res.json(success);
+})
+
+app.post('/events/updateLocation', (req, res) => {
+  const { userID, eventID, newLocation } = req.body;
+
+  const success = updateLocation(userID, eventID, newLocation);
+  res.json(success);
+})
+
+app.post('/events/updateDate', (req, res) => {
+  const { userID, eventID, newLocation } = req.body;
+
+  const success = updateDate(userID, eventID, newDate);
+  res.json(success);
+})
+
+app.post('/events/addMember', (req, res) => {
+  const { userID, eventID } = req.body;
+
+  const success = addMember(userID, eventID);
+  res.json(success);
+})
+
+app.post('/events/removeMember', (req, res) => {
+  const { userID, eventID } = req.body;
+
+  const success = removeMember(userID, eventID);
+  res.json(success);
 })
