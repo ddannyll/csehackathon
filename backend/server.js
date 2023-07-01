@@ -22,7 +22,7 @@ app.get('/getfeed', (req, res) => {
 });
 
 app.delete('/deleteEvent', (req, res) => {
-  const event_id = req.query('eventID');
+  const event_id = req.query;
   res.send(deleteEvent(event_id));
 });
 
