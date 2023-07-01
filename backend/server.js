@@ -1,10 +1,13 @@
 import { getData, setData, databaseInit} from './data.js'
 import express from 'express'
 import { helloWorld } from './test.js'
-import { getFeed, getEventDetails, deleteEvent } from './events.js'
+import { createNewEvent, updateName, updateLocation, updateDate, addMember, removeMember, getFeed, getEventDetails, deleteEvent } from './events.js'
+import { v4 as uuidv4 } from 'uuid';
 
 const app = express()
 databaseInit();
+
+app.use(express.json());
 
 // respond with "hello world" when a GET request is made to the homepage
 app.get('/', (req, res) => {
@@ -26,18 +29,57 @@ app.delete('/deleteEvent', (req, res) => {
   res.send(deleteEvent(event_id));
 });
 
-app.get('/events/getEventDetails/:id', (req, res) => {
-  res.send('hello');
-  const id = req.params.id;
-  // console.log(id);
-  getEventDetails(id);
+app.listen(6060, () => {
+  console.log('Started server')
 })
 
 app.post('/events/createEvent', (req, res) => {
-  const { id, event_name, date, picture } =  req.body
+  const {hostID, eventName, date, description, tags, location, members, img} = req.body;
+  const randomID = uuidv4();
 
+  createNewEvent(randomID, hostID, eventName, date, description, tags, location, members, img)
+  res.json()
 }) 
 
-app.listen(6060, () => {
-  console.log('started server')
+//dynamic 
+app.get('/events/getEventDetails/:id', (req, res) => {
+  const id = req.params.id;
+  
+  const event = getEventDetails(id);
+  res.json(event);
+})
+
+app.post('/events/updateName', (req, res) => {
+  const { userID, eventID, newName } = req.body;
+
+  const success = updateName(userID, eventID, newName);
+  res.json(success);
+})
+
+app.post('/events/updateLocation', (req, res) => {
+  const { userID, eventID, newLocation } = req.body;
+
+  const success = updateLocation(userID, eventID, newLocation);
+  res.json(success);
+})
+
+app.post('/events/updateDate', (req, res) => {
+  const { userID, eventID, newLocation } = req.body;
+
+  const success = updateDate(userID, eventID, newDate);
+  res.json(success);
+})
+
+app.post('/events/addMember', (req, res) => {
+  const { userID, eventID } = req.body;
+
+  const success = addMember(userID, eventID);
+  res.json(success);
+})
+
+app.post('/events/removeMember', (req, res) => {
+  const { userID, eventID } = req.body;
+
+  const success = removeMember(userID, eventID);
+  res.json(success);
 })

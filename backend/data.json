@@ -1,38 +1,4 @@
 {
     "users": {},
-    "events": {
-        "5": {
-            "eventID": "5",
-            "hostID": "kieren",
-            "eventName": "tokyo",
-            "date": "17/3/24",
-            "description": "going to TOKYOOO",
-            "tags": [
-                "local",
-                "temple"
-            ],
-            "location": "sydney",
-            "members": [
-                "william",
-                "kieren"
-            ],
-            "img": "./image"
-        },
-        "sdj": {
-            "eventID": "sdj",
-            "eventName": "tokyo",
-            "date": "17/3/24",
-            "description": "going to TOKYOOO",
-            "tags": [
-                "local",
-                "temple"
-            ],
-            "location": "sydney",
-            "members": [
-                "william",
-                "kieren"
-            ],
-            "img": "./image"
-        }
-    }
+    "events": {}
 }
