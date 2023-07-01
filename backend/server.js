@@ -58,3 +58,38 @@ app.post('/messages/sendEventMessage', (req, res) => {
   sendEventMessage(eventID, userID, content);
   res.json();
 })
+
+app.post('/events/updateName', (req, res) => {
+  const { userID, eventID, newName } = req.body;
+
+  const success = updateName(userID, eventID, newName);
+  res.json(success);
+})
+
+app.post('/events/updateLocation', (req, res) => {
+  const { userID, eventID, newLocation } = req.body;
+
+  const success = updateLocation(userID, eventID, newLocation);
+  res.json(success);
+})
+
+app.post('/events/updateDate', (req, res) => {
+  const { userID, eventID, newLocation } = req.body;
+
+  const success = updateDate(userID, eventID, newDate);
+  res.json(success);
+})
+
+app.post('/events/addMember', (req, res) => {
+  const { userID, eventID } = req.body;
+
+  const success = addMember(userID, eventID);
+  res.json(success);
+})
+
+app.post('/events/removeMember', (req, res) => {
+  const { userID, eventID } = req.body;
+
+  const success = removeMember(userID, eventID);
+  res.json(success);
+})
