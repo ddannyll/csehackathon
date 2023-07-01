@@ -1,11 +1,9 @@
 import { getData, setData, databaseInit} from './data.js'
 import express from 'express'
 import { helloWorld } from './test.js'
-
-import { getEventDetails, createNewEvent, updateName, updateLocation, updateDate, addMember, removeMember } from './events.js'
+import { createNewEvent, updateName, updateLocation, updateDate, addMember, removeMember, getFeed, getEventDetails, deleteEvent } from './events.js'
 import { v4 as uuidv4 } from 'uuid';
 import { register, login, profileDetails, updateProfile, requestEventJoin } from './users.js';
-
 
 const app = express()
 databaseInit();
@@ -21,6 +19,16 @@ app.get('/', (req, res) => {
 app.get('/hello', (req, res) => {
   res.send(helloWorld())
 })
+
+app.get('/getfeed', (req, res) => {
+  const { userID } = req.query;
+  res.send(getFeed(userID));
+});
+
+app.delete('/deleteEvent', (req, res) => {
+  const event_id = req.query;
+  res.send(deleteEvent(event_id));
+});
 
 app.listen(6060, () => {
   console.log('Started server')
@@ -50,6 +58,7 @@ app.post('/users/requestEventJoin', (req, res) => {
   const { username, eventID } = req.body;
   return res.json(requestEventJoin(username, eventID));
 })
+
 app.post('/events/createEvent', (req, res) => {
   const {hostID, eventName, date, description, tags, location, members, img} = req.body;
   const randomID = uuidv4();
