@@ -1,4 +1,22 @@
 {
     "users": {},
-    "events": {}
+    "events": {
+        "c61fa63c-973a-4b2c-8655-7e1fb834c28f": {
+            "eventID": "c61fa63c-973a-4b2c-8655-7e1fb834c28f",
+            "hostID": "William",
+            "eventName": "Tokyo",
+            "date": "17/3/24",
+            "description": "going to TOKYOO",
+            "tags": [
+                "temple",
+                "local"
+            ],
+            "location": "Shibuya",
+            "members": [
+                "William",
+                "Kieren"
+            ],
+            "img": "./image"
+        }
+    }
 }
