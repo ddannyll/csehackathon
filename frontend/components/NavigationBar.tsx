@@ -3,6 +3,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faCalendarDays, faMagnifyingGlass, faUser} from '@fortawesome/free-solid-svg-icons'
 import Link from 'next/link'
+import { useContext } from 'react'
+import { AuthContext } from '@/pages/_app'
 
 export const navigationTabs = ['events', 'swipe', 'profile']
 
@@ -12,6 +14,8 @@ interface NavigationBarProps {
 }
 
 export default function NavigationBar({className, selectedTab}: NavigationBarProps) {
+    const {authUser} = useContext(AuthContext)
+
     const unselectedClassName = 'transition-all hover:text-red-400 text-zinc-300'
     const selectedClassName = 'transition-all hover:text-red-400 text-red-400 border-b-4 px-2 border-red-400 py-2'
 
@@ -24,7 +28,7 @@ export default function NavigationBar({className, selectedTab}: NavigationBarPro
         <Link href={'/'} className={selectedTab === 'swipe' ? selectedClassName : unselectedClassName}>
             <FontAwesomeIcon icon={faMagnifyingGlass} />
         </Link>
-        <Link href={'/profile'} className={selectedTab === 'profile' ? selectedClassName : unselectedClassName}>
+        <Link href={`/profile/${authUser?.userId}`} className={selectedTab === 'profile' ? selectedClassName : unselectedClassName}>
             <FontAwesomeIcon icon={faUser} />
         </Link>
     </nav>

@@ -23,7 +23,7 @@ export default function Login() {
         console.log(data)
         // TODO REPLACE WITH BACKEND REQ
         if (data.username === 'd' && data.password === 'd' && setAuthUser) {
-            setAuthUser({token: 'd', user: 'd'})
+            setAuthUser({token: 'd', userId: 'd'})
             router.push('/')
         }
     }

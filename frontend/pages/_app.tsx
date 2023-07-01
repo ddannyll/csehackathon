@@ -5,7 +5,7 @@ import { createContext, useState } from 'react'
 
 interface AuthUser {
     token: string
-    user: string
+    userId: string
 }
 
 interface AuthContextInterface {

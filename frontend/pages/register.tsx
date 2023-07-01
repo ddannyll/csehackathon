@@ -28,7 +28,7 @@ export default function Login() {
         console.log(data)
         // TODO REPLACE WITH BACKEND REQ
         if (data.username === 'd' && data.password === 'd' && setAuthUser) {
-            setAuthUser({token: 'd', user: 'd'})
+            setAuthUser({token: 'd', userId: 'd'})
             router.push('/')
         }
     }
@@ -38,7 +38,7 @@ export default function Login() {
             className="w-screen h-screen flex justify-center items-center">
             <Image
                 src={'redWave.svg'}
-                alt='background wave' width={1920} height={1920}
+                alt='background wave' width={1920} height={1080}
                 className='absolute -z-10 object-cover w-full h-full'
             />
             <form
