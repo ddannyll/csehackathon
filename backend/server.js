@@ -4,6 +4,7 @@ import { helloWorld } from './test.js'
 
 import { getEventDetails, createNewEvent, updateName, updateLocation, updateDate, addMember, removeMember } from './events.js'
 import { v4 as uuidv4 } from 'uuid';
+import { register, login, profileDetails, updateProfile, requestEventJoin } from './users.js';
 
 
 const app = express()
@@ -25,8 +26,30 @@ app.listen(6060, () => {
   console.log('Started server')
 })
 
+app.post('/users/register', (req, res) => {
+  const { username, password } = req.body;
+  return res.json(register(username, password));
+})
 
+app.post('/users/login', (req, res) => {
+  const { username, password } = req.body;
+  return res.json(login(username, password));
+})
 
+app.post('/users/updateProfile', (req, res) => {
+  const { username, bio, tags, picture } = req.body;
+  return res.json(updateProfile(username, bio, tags, picture));
+})
+
+app.post('/users/profileDetails', (req, res) => {
+  const { username } = req.body;
+  return res.json(profileDetails(username));
+})
+
+app.post('/users/requestEventJoin', (req, res) => {
+  const { username, eventID } = req.body;
+  return res.json(requestEventJoin(username, eventID));
+})
 app.post('/events/createEvent', (req, res) => {
   const {hostID, eventName, date, description, tags, location, members, img} = req.body;
   const randomID = uuidv4();
