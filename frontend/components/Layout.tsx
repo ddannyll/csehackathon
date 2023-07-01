@@ -2,6 +2,7 @@ import { useContext, useEffect, useMemo } from 'react';
 import { AuthContext } from '@/pages/_app';
 import { useRouter } from 'next/router';
 import NavigationBar from './NavigationBar';
+import Image from 'next/image';
 
 const layoutBlacklist = [
     '/login',
@@ -33,7 +34,12 @@ export default function Layout({children} : {children?: React.ReactNode}) {
 
 
 
-    return <div className='w-screen h-screen bg-gray-50'>
+    return <div className='w-screen h-screen relative'>
+        <Image
+            src={'/redWave.svg'}
+            alt='background wave' width={1920} height={1080}
+            className='-z-10 absolute object-cover w-screen h-screen'
+        />
         {children}
         <NavigationBar className='absolute bottom-0 left-1/2 -translate-x-1/2' selectedTab={selectedTab}/>
     </div>
