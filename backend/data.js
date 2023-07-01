@@ -1,7 +1,7 @@
 import fs from 'fs';
 const databaseFile ='./data.json';
 
-
+let tempDatabase;
 
 
 function getData() {
@@ -19,7 +19,8 @@ function setData(newData) {
 function databaseInit() {
   if (!fs.existsSync(databaseFile)) {
     const database = {
-      users: []
+      users: {},
+      events: {}
     };
     fs.writeFileSync(databaseFile, JSON.stringify(database, null, 4), { flag: 'w' });
   }
