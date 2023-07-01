@@ -1,7 +1,7 @@
 import { databaseInit} from './data.js'
 import express from 'express'
 import { helloWorld } from './test.js'
-import { createNewEvent, updateName, updateLocation, updateDate, updateImage, addMember, removeMember, getFeed, getEventDetails, deleteEvent, updateLimit } from './events.js'
+import { createNewEvent, updateName, updateLocation, updateDate, updateImage, addMember, removeMember, addEventTag, removeEventTag, getFeed, getEventDetails, deleteEvent, updateLimit } from './events.js'
 import { v4 as uuidv4 } from 'uuid';
 import { register, login, profileDetails, updateProfile } from './users.js';
 import { getEventMessages, sendEventMessage } from './messages.js';
@@ -52,7 +52,7 @@ app.post('/users/profileDetails', (req, res) => {
 })
 
 app.post('/events/createEvent', (req, res) => {
-  const {hostID, eventName, date, description, tags, location, limit, members, img} = req.body;
+  const { hostID, eventName, date, description, tags, location, limit, members, img } = req.body;
   const randomID = uuidv4();
 
   createNewEvent(randomID, hostID, eventName, date, description, tags, location, limit, members, img)
@@ -121,6 +121,23 @@ app.post('/events/removeMember', (req, res) => {
   const success = removeMember(userID, removeID, eventID);
   res.json(success);
 })
+
+
+app.post('/events/addEventTag', (req, res) => {
+  const { userID, eventID, tag } = req.body;
+
+  const success = addEventTag(userID, eventID, tag);
+  res.json(success);
+})
+
+app.post('/events/removeEventTag', (req, res) => {
+  const { userID, eventID, tag } = req.body;
+
+  const success = removeEventTag(userID, eventID, tag);
+  res.json(success);
+})
+
+
 
 // Messages
 app.get('/messages/getEventMessages/:id', (req, res) => {
