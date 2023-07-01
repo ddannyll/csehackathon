@@ -6,7 +6,7 @@ function getFeed(userID) {
     const users = data.users;
     const events = data.events;
 
-    const user = users.find(user => user.userID === userID);
+    const user = users[userID]
 
     // create array of feed_items
     // feed_items:
@@ -33,12 +33,12 @@ function getFeed(userID) {
     return feed;
 }
 
-function findTagRating(user_id, event_id) {
+function findTagRating(userID, eventID) {
     const data = getData();
     let tag_rating = 0;
 
-    const user = data.users.find(user => user.userID === user_id);
-    const event = data.events[event_id];
+    const user = data.users[userID];
+    const event = data.events[eventID];
     
     for (const tag in user.tags) {
         if (event.tags.includes(user.tags[tag])) {
@@ -135,4 +135,23 @@ function removeMember(user, remove, id) {
     return true;
 }
 
-export { getEventDetails, createNewEvent, updateName, updateLocation, updateDate, updateImage, updateLimit, addMember, removeMember, getFeed, deleteEvent };
+function addEventTag(user, id, tag) {
+    const data = getData();
+    const tags = data.events[id].tags;
+    if (user !== data.events[id].hostID) return false;
+    if (tags.includes(tag)) return false;
+    tags.push(tag);
+    setData(data);
+    return true;
+}
+
+function removeEventTag(user, id, remove) {
+    const data = getData();
+    const tags = data.events[id].tags;
+    if (user !== data.events[id].hostID) return false;
+    if (!tags.includes(tag)) return false;
+    data.event[eventID].tags = tags.filter(tag => tag !== remove);
+    return true
+}
+
+export { getEventDetails, createNewEvent, updateName, updateLocation, updateDate, updateImage, updateLimit, addMember, removeMember, getFeed, deleteEvent, addEventTag, removeEventTag };
