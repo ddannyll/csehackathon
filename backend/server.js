@@ -1,9 +1,10 @@
 import { getData, setData, databaseInit} from './data.js'
 import express from 'express'
 import { helloWorld } from './test.js'
-import { createNewEvent, updateName, updateLocation, updateDate, addMember, removeMember, getFeed, getEventDetails, deleteEvent } from './events.js'
+import { createNewEvent, updateName, updateLocation, updateDate, updateImage, addMember, removeMember, getFeed, getEventDetails, deleteEvent, updateLimit } from './events.js'
 import { v4 as uuidv4 } from 'uuid';
-import { register, login, profileDetails, updateProfile, requestEventJoin } from './users.js';
+import { register, login, profileDetails, updateProfile } from './users.js';
+import { getEventMessages, sendEventMessage } from './messages.js';
 
 const app = express()
 databaseInit();
@@ -25,10 +26,6 @@ app.get('/getfeed', (req, res) => {
   res.send(getFeed(userID));
 });
 
-app.delete('/deleteEvent', (req, res) => {
-  const event_id = req.query;
-  res.send(deleteEvent(event_id));
-});
 
 app.listen(6060, () => {
   console.log('Started server')
@@ -54,20 +51,21 @@ app.post('/users/profileDetails', (req, res) => {
   return res.json(profileDetails(username));
 })
 
-app.post('/users/requestEventJoin', (req, res) => {
-  const { username, eventID } = req.body;
-  return res.json(requestEventJoin(username, eventID));
-})
-
 app.post('/events/createEvent', (req, res) => {
-  const {hostID, eventName, date, description, tags, location, members, img} = req.body;
+  const {hostID, eventName, date, description, tags, location, limit, members, img} = req.body;
   const randomID = uuidv4();
 
-  createNewEvent(randomID, hostID, eventName, date, description, tags, location, members, img)
+  createNewEvent(randomID, hostID, eventName, date, description, tags, location, limit, members, img)
   res.json()
 }) 
 
-//dynamic 
+app.post('/events/deleteEvent', (req, res) => {
+  const { userID, eventID } = req.body;
+
+  const success = deleteEvent(userID, eventID);
+  res.json(success);
+});
+
 app.get('/events/getEventDetails/:id', (req, res) => {
   const id = req.params.id;
   
@@ -90,9 +88,23 @@ app.post('/events/updateLocation', (req, res) => {
 })
 
 app.post('/events/updateDate', (req, res) => {
-  const { userID, eventID, newLocation } = req.body;
+  const { userID, eventID, newDate } = req.body;
 
   const success = updateDate(userID, eventID, newDate);
+  res.json(success);
+})
+
+app.post('/events/updateImage', (req, res) => {
+  const { userID, eventID, newImage } = req.body;
+
+  const success = updateImage(userID, eventID, newImage);
+  res.json(success);
+})
+
+app.post('/events/updateLimit', (req, res) => {
+  const { userID, eventID, newLimit } = req.body;
+
+  const success = updateLimit(userID, eventID, newLimit);
   res.json(success);
 })
 
@@ -104,8 +116,21 @@ app.post('/events/addMember', (req, res) => {
 })
 
 app.post('/events/removeMember', (req, res) => {
-  const { userID, eventID } = req.body;
+  const { userID, removeID, eventID } = req.body;
 
-  const success = removeMember(userID, eventID);
+  const success = removeMember(userID, removeID, eventID);
   res.json(success);
+})
+
+// Messages
+app.get('/messages/getEventMessages/:id', (req, res) => {
+  const id = req.params.id;
+  const messages = getEventMessages(id);
+  res.json(messages);
+})
+
+app.post('/messages/sendEventMessage', (req, res) => {
+  const { userID, eventID, content } = req.body;
+  sendEventMessage(eventID, userID, content);
+  res.json();
 })
