@@ -15,9 +15,13 @@ app.get('/hello', (req, res) => {
 })
 
 app.get('/getfeed', (req, res) => {
-  const user_id = req.header('userId');
-  const event_id = req.query;
+  const { user_id, event_id } = req.query;
   res.send(getFeed(user_id, event_id));
+});
+
+app.delete('/deleteEvent', (req, res) => {
+  const event_id = req.query('event_id');
+  res.send(deleteEvent(event_id));
 });
 
 app.listen(6060, () => {

@@ -1,6 +1,13 @@
 import { getData } from "./data";
 
-function getFeed(userId) {
+function deleteEvent(event_id) {
+    const data = getData();
+    const events = data.events;
+    
+    return events.filter(event => event.event_id != event_id);
+}
+
+function getFeed(user_id) {
     const data = getData();
     const events = data.events;
 
@@ -17,7 +24,9 @@ function getFeed(userId) {
             'tag_rating': findTagRating(user.user_id, event_id),
         }
 
-        feed.push(feed_item);
+        if (event.user_id != user_id) {
+            feed.push(feed_item);
+        }
     }
 
     // sort by tags > data
