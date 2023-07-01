@@ -34,6 +34,7 @@ app.post('/events/createEvent', (req, res) => {
 
   createNewEvent(randomID, hostID, eventName, date, description, tags, location, members, img)
   res.json();
+  res.json()
 }) 
 
 //dynamic 
@@ -45,7 +46,7 @@ app.get('/events/getEventDetails/:id', (req, res) => {
 })
 
 
-// Event Messaging
+// Messages
 app.get('/messages/getEventMessages/:id', (req, res) => {
   const id = req.params.id;
   const messages = getEventMessages(id);
