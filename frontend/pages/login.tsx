@@ -3,6 +3,7 @@ import { useContext } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { AuthContext } from './_app'
 import { useRouter } from 'next/router'
+import Image from 'next/image'
 
 type LoginInputs = {
     username: string
@@ -29,7 +30,12 @@ export default function Login() {
 
     return (
         <div
-            className="w-screen h-screen flex justify-center items-center bg-gray-50">
+            className="w-screen h-screen flex justify-center items-center relative">
+            <Image
+                src={'redWave.svg'}
+                alt='background wave' width={1920} height={1080}
+                className='absolute -z-10 object-cover w-full h-full'
+            />
             <form
                 onSubmit={handleSubmit(onSubmit)}
                 className="shadow-md max-w-md w-full flex flex-col gap-2 p-6 rounded bg-white">
