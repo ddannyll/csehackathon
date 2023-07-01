@@ -6,6 +6,7 @@ import dayjs from 'dayjs'
 import Image from 'next/image'
 import Link from 'next/link'
 import useSWR from 'swr'
+import Tag from './Tag'
 
 interface EventBlockProps {
     eventId: string
@@ -39,6 +40,9 @@ export default function EventBlock({eventId, owned}: EventBlockProps) {
                     <button className='p-2 z-10 hover:text-zinc-900'>
                     Edit
                     </button>
+                </div>
+                <div className="flex gap-2 p-2 overflow-x-scroll scrollbar-thin scrollbar-thumb-zinc-500">
+                    {tags.map(tag => <Tag name={tag} key={tag} className='bg-zinc-300'/>)}
                 </div>
             </div>
         </div>
