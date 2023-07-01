@@ -15,7 +15,7 @@ function register(username, password) {
 
 function login(username, password) {
     let data = getData();
-    if (data.users[username] != undefined && data.users[username].password === password) {
+    if (data.users[username] !== undefined && data.users[username].password === password) {
         return { username };
     } else {
         return { error: 'error' };
@@ -40,20 +40,9 @@ function profileDetails(username) {
         tags: user.tags,
         picture: user.picture,
         hostedEvents: Object.values(data.events).filter(event => event.hostID === username).map(a => a.eventID),
-        joinedEvents: Object.values(data.events).filter(event => event.members.find(member => member === username) != undefined).map(a => a.eventID)
+        joinedEvents: Object.values(data.events).filter(event => event.members.find(member => member === username) !== undefined).map(a => a.eventID)
     };
 }
 
-function requestEventJoin(username, eventID) {
-    let data = getData();
-    if (data.events[eventID].hostID != username) {
-        data.events[eventID].members.push(username);
-        setData(data);
-        return true;
-    } else {
-        return false;
-    }
 
-}
-
-export { login, register, updateProfile, profileDetails, requestEventJoin };
+export { login, register, updateProfile, profileDetails };

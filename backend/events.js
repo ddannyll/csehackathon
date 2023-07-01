@@ -1,33 +1,26 @@
-import { getData, setData } from "./data.js";
+import {getData, setData} from "./data.js";
 
-function deleteEvent(eventID) {
-    const data = getData();
-    const events = data.events;
-    
-    delete events.eventID;
-    setData(data);
-}
 
-function getFeed(user_id) {
+function getFeed(userID) {
     const data = getData();
     const users = data.users;
     const events = data.events;
 
-    const user = users.find(user => user.user_id === user_id);
+    const user = users.find(user => user.userID === userID);
 
     // create array of feed_items
     // feed_items:
     //      - event: Event
     //      - tag_rating: int
-    var feed = new Array();
+    const feed = [];
     for (const [eventID, event] of Object.entries(events)) {
         const feed_item = {
             'event_id': eventID,
-            'tag_rating': findTagRating(user.user_id, eventID),
+            'tag_rating': findTagRating(user.userID, eventID),
             'date': event.date,
         }
 
-        if (event.hostID != user_id) {
+        if (event.hostID !== userID) {
             feed.push(feed_item);
         }
     }
@@ -42,9 +35,9 @@ function getFeed(user_id) {
 
 function findTagRating(user_id, event_id) {
     const data = getData();
-    var tag_rating = 0;
+    let tag_rating = 0;
 
-    const user = data.users.find(user => user.user_id === user_id);
+    const user = data.users.find(user => user.userID === user_id);
     const event = data.events[event_id];
     
     for (const tag in user.tags) {
@@ -56,17 +49,19 @@ function findTagRating(user_id, event_id) {
     return tag_rating;
 }
 
-function createNewEvent(eventID, hostID, eventName, date, description, tags, location, members, img) {
+function createNewEvent(eventID, hostID, eventName, date, description, tags, location, limit, members, img) {
     const data = getData();
-    data.events[eventID] = {eventID, hostID, eventName, date, description, tags, location, members, img};
+    const messages = []
+    data.events[eventID] = {eventID, hostID, eventName, date, description, tags, location, limit, members, img, messages};
     setData(data);
 }
 
-
-// logger for debugging
-function logEvent(eventID) {
+function deleteEvent(user, id) {
     const data = getData();
-    console.log(data.events[eventID]);
+    if (user !== data.events[id].hostID) return false;
+    delete data.events[id];
+    setData(data);
+    return true;
 }
 
 function getEventDetails(id) {
@@ -98,30 +93,46 @@ function updateDate(user, id, date) {
     return true;
 }
 
-// function updateImage(user, id, image) {
-//     const data = getData();
-//     data.events[id].image = image;
-//     setData(data)
-// }
+function updateImage(user, id, image) {
+    const data = getData();
+    if (user !== data.events[id].hostID) return false;
+    data.events[id].img = image;
+    setData(data);
+    return true;
+}
+
+function updateLimit(user, id, limit) {
+    const data = getData();
+    const members = data.events[id].members;
+    if (user !== data.events[id].hostID) return false;
+    if (limit < members.length) return false;
+    data.events[id].limit = limit;
+    setData(data);
+    return true;
+}
 
 function addMember(user, id) {
     const data = getData();
     const members = data.events[id].members;
     if (members.includes(user)) return false;
+
+    const limit = Number(data.events[id].limit);
+    if (members.length === limit) return false;
+
     members.push(user);
     data.events[id].members = members;
     setData(data);
     return true;
 }
 
-function removeMember(user, id) {
+function removeMember(user, remove, id) {
     const data = getData();
     const members = data.events[id].members;
+    if (user !== data.events[id].hostID) return false;
     if (!members.includes(user)) return false;
-    const updatedMembers = members.filter(member => member !== user);
-    data.events[id].members = updatedMembers;
+    data.events[id].members = members.filter(member => member !== remove);
     setData(data);
     return true;
 }
 
-export { getEventDetails, createNewEvent, updateName, updateLocation, updateDate, addMember, removeMember, getFeed, deleteEvent };
+export { getEventDetails, createNewEvent, updateName, updateLocation, updateDate, updateImage, updateLimit, addMember, removeMember, getFeed, deleteEvent };
