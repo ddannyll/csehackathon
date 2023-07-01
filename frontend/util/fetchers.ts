@@ -22,6 +22,7 @@ export const fetchEventDetails = async ({eventId}: {eventId: string}) => {
         tags: ['fitness', 'climb', 'local'],
         location: 'sydney',
         members: [],
+        limit: 5,
         img: 'https://media.timeout.com/images/105287783/image.jpg',
     }
 
@@ -32,6 +33,7 @@ export const fetchEventDetails = async ({eventId}: {eventId: string}) => {
         description: 'Join us for an exciting hiking adventure in the scenic mountains!',
         tags: ['hiking', 'adventure', 'nature', 'outdoor'],
         location: 'mountains',
+        limit: 5,
         members: [],
         img: '',
     };

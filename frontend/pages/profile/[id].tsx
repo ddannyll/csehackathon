@@ -1,4 +1,4 @@
-import { useContext, useMemo } from 'react'
+import { useContext, useMemo, useState } from 'react'
 import { AuthContext } from '../_app'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
@@ -7,11 +7,17 @@ import EventBlock from '@/components/EventBlock'
 import useSWR from 'swr'
 import {applyFn} from '@/util/helpers'
 import { fetchUserDetails } from '@/util/fetchers'
+import { Dialog } from '@headlessui/react'
+import EditProfileForm from '@/components/EditProfileForm'
 
 export default function Profile() {
     const {authUser} = useContext(AuthContext)
     const router = useRouter()
     const ownProfile = useMemo(() => authUser?.userId === router.query.id, [router, authUser])
+    const [dialogOpen, setDialogOpen] = useState(false)
+    const [dialogForm, setDialogForm] = useState<'editProfile'|'editEvent'>()
+    const [editingEvent, setEditingEvent] = useState<string>()
+
 
     const {data: userDetails} = useSWR(
         [fetchUserDetails, {userId: router.query.id}],
@@ -21,7 +27,16 @@ export default function Profile() {
 
     if (userDetails) {
         const {username, bio, tags, picture, hosted_events} = userDetails
-        return <div className='h-full max-w-lg mx-auto overflow-y-scroll scrollbar-none'>
+        return <div className='h-full max-w-lg mx-auto overflow-y-scroll scrollbar-none '>
+            <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)}
+                className='absolute w-screen h-screen top-0 z-30 bg-black/50 flex justify-center items-center'>
+                <Dialog.Panel className='max-w-xl w-full flex flex-col bg-zinc-100 p-6'>
+                    <Dialog.Title className="text-2xl text-zinc-600 text-center pb-2">
+                        {dialogForm === 'editProfile' ? 'Editing Profile' : 'Editing Event'}
+                    </Dialog.Title>
+                    <EditProfileForm close={() => setDialogOpen(false)} initialBio={bio} initialTags={tags} initialImage={picture} />
+                </Dialog.Panel>
+            </Dialog>
             <div className='bg-zinc-100 shadow flex flex-col mt-10 mb-32 rounded-xl overflow-hidden'>
                 <Image
                     src={'/placehold.png'}
@@ -39,10 +54,14 @@ export default function Profile() {
                     </div>
                     {ownProfile &&
                     <div className="flex justify-center gap-6">
-                        <button className="self-center place-self-end px-4 py-1 rounded border-red-400 border text-red-400 hover:bg-red-50">
+                        <button
+                            onClick={() => {setDialogForm('editProfile'); setDialogOpen(true);}}
+                            className="self-center place-self-end px-4 py-1 rounded border-red-400 border text-red-400 hover:bg-red-50">
                             Edit Profile
                         </button>
-                        <button className="self-center place-self-end px-4 py-1 rounded bg-red-400 border text-red-50 hover:bg-red-500">
+                        <button
+                            onClick={() => {setDialogForm('editEvent');}}
+                            className="self-center place-self-end px-4 py-1 rounded bg-red-400 border text-red-50 hover:bg-red-500">
                             New Event
                         </button>
                     </div>
