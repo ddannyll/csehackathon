@@ -1,4 +1,4 @@
-import { getData, setData, databaseInit} from './data.js'
+import { databaseInit} from './data.js'
 import express from 'express'
 import { helloWorld } from './test.js'
 import { createNewEvent, updateName, updateLocation, updateDate, updateImage, addMember, removeMember, getFeed, getEventDetails, deleteEvent, updateLimit } from './events.js'

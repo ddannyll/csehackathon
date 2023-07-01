@@ -64,12 +64,6 @@ function deleteEvent(user, id) {
     return true;
 }
 
-// logger for debugging
-function logEvent(eventID) {
-    const data = getData();
-    console.log(data.events[eventID]);
-}
-
 function getEventDetails(id) {
     const data = getData();
     return data.events[id];
