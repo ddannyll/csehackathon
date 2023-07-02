@@ -22,7 +22,7 @@ export default function Login() {
     const onSubmit: SubmitHandler<LoginInputs> = data => {
         console.log(data)
         // TODO REPLACE WITH BACKEND REQ
-        if (data.username === 'd' && data.password === 'd' && setAuthUser) {
+        if (data.username === 'daniel' && data.password === 'daniel321' && setAuthUser) {
             setAuthUser({token: 'd', userId: 'd'})
             router.push('/')
         }
