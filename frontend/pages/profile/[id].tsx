@@ -36,7 +36,7 @@ export default function Profile() {
                         {dialogForm === 'editProfile' ? 'Editing Profile' : 'Editing Event'}
                     </Dialog.Title>
                     {dialogForm === 'editEvent' ?
-                        <EditEventForm close={() => setDialogOpen(false)} eventId={editingEvent}/>
+                        <EditEventForm close={() => setDialogOpen(false)} eventId={editingEvent || ''}/>
                         :
                         <EditProfileForm close={() => setDialogOpen(false)} initialBio={bio} initialTags={tags} initialImage={picture} />
 

@@ -35,7 +35,7 @@ export const fetchEventDetails = async ({eventId}: {eventId: string}) => {
         location: 'mountains',
         limit: 5,
         members: [],
-        img: '',
+        img: 'https://post.healthline.com/wp-content/uploads/2020/08/couple-hiking-mountain-climbing-732x549-thumbnail.jpg',
     };
 
     const dummyData3 = {
