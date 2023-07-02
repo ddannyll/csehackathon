@@ -1,0 +1,26 @@
+{
+    "users": {
+        "undefined": {}
+    },
+    "events": {
+        "46b48c97-c516-40fa-8693-f96ed1307a3d": {
+            "eventID": "46b48c97-c516-40fa-8693-f96ed1307a3d",
+            "hostID": "William",
+            "eventName": "Tokyo",
+            "date": "17/3/24",
+            "description": "going to TOKYOO",
+            "tags": [
+                "temple",
+                "local"
+            ],
+            "location": "Tokyo",
+            "limit": "5",
+            "members": [
+                "William",
+                "Kieren"
+            ],
+            "img": "./image",
+            "messages": []
+        }
+    }
+}
