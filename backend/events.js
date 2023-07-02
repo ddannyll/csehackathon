@@ -14,6 +14,8 @@ function getFeed(userID) {
     //      - tag_rating: int
     const feed = [];
     for (const [eventID, event] of Object.entries(events)) {
+        if (event.members.includes(userID)) continue;
+
         const feed_item = {
             'event_id': eventID,
             'tag_rating': findTagRating(user.userID, eventID),
@@ -40,8 +42,8 @@ function findTagRating(userID, eventID) {
     const user = data.users[userID];
     const event = data.events[eventID];
     
-    for (const tag in user.tags) {
-        if (event.tags.includes(user.tags[tag])) {
+    for (const tag of user.tags) {
+        if (event.tags.includes(tag)) {
             tag_rating++;
         }
     }
@@ -129,7 +131,7 @@ function removeMember(user, remove, id) {
     const data = getData();
     const members = data.events[id].members;
     if (user !== data.events[id].hostID) return false;
-    if (!members.includes(user)) return false;
+    if (!members.includes(remove)) return false;
     data.events[id].members = members.filter(member => member !== remove);
     setData(data);
     return true;
