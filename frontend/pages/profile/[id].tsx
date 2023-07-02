@@ -66,7 +66,7 @@ export default function Profile() {
                             Edit Profile
                         </button>
                         <button
-                            onClick={() => {setDialogForm('editEvent');}}
+                            onClick={() => {setDialogForm('editEvent'); setDialogOpen(true);}}
                             className="self-center place-self-end px-4 py-1 rounded bg-red-400 border text-red-50 hover:bg-red-500">
                             New Event
                         </button>
