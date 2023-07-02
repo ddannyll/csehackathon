@@ -11,7 +11,7 @@ import Tag from './Tag'
 interface EventBlockProps {
     eventId: string
     owned: boolean
-    editEvent: () => void
+    editEvent?: () => void
 }
 
 export default function EventBlock({eventId, owned, editEvent}: EventBlockProps) {

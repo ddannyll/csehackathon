@@ -7,7 +7,7 @@ export const fetchUserDetails = async ({userId}: {userId: string}) => {
         tags: ['korea', 'food', 'pets'],
         picture: 'https://cgi.cse.unsw.edu.au/~cs2041//team/5363586/profile.jpg',
         hosted_events: ['eventid1', 'eventid2', 'eventid3'],
-        joined_events: [],
+        joined_events: ['otherEventId1', 'eventid2', 'eventid1', 'otherEventId1'],
     }
 
     return dummyData
@@ -38,11 +38,27 @@ export const fetchEventDetails = async ({eventId}: {eventId: string}) => {
         img: '',
     };
 
-    if (eventId === 'eventid1') {
-        return dummyData
+    const dummyData3 = {
+        hostId: 'kieranId',
+        eventName: 'Skiing Adventure',
+        date: '2023-07-15T09:00:00+0000',
+        description: 'Join us for an exciting skiing adventure in the scenic mountains!',
+        tags: ['snow', 'adventure', 'nature', 'outdoor'],
+        location: 'perisher',
+        limit: 7,
+        members: [],
+        img: 'https://upload.wikimedia.org/wikipedia/commons/1/1d/Norway_skiing.jpg',
     }
 
-    return dummyData2
+    switch (eventId) {
+    case 'eventid1':
+        return dummyData
+    case 'otherEventId1':
+        return dummyData3
+    default:
+        return dummyData2
+    }
+
 }
 
 export const fetchFeed = async ({userId}: {userId: string}) => {
